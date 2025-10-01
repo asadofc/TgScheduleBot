@@ -687,12 +687,5 @@ async def main():
         sys.exit(1)
 
 
-if __name__ == "__main__":
-    # Check for required packages
-    try:
-    except ImportError as e:
-        print("Missing required packages. Please install:")
-        print("pip install pyfiglet termcolor pyrogram openai")
-        sys.exit(1)
-    
+if __name__ == "__main__": 
     asyncio.run(main())
