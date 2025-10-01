@@ -4,3 +4,4 @@ kurigram
 TgCrypto
 openai
 aiohttp
+pyrogram
