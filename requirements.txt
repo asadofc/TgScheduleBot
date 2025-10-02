@@ -1,7 +1,6 @@
 pyfiglet
 termcolor
 kurigram
-TgCrypto
-openai
+openai==0.28
 aiohttp
 pyrogram
