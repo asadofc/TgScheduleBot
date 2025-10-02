@@ -3,4 +3,3 @@ termcolor
 kurigram
 openai==0.28
 aiohttp
-pyrogram
