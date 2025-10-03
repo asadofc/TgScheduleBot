@@ -26,7 +26,7 @@ Automate your Telegram channel posts with AI-generated content. This script help
 
 2.  **Install the required packages:**
     ```bash
-    pip install pyrogram pyfiglet termcolor openai==0.28 aiohttp
+    pip install -r requirements.txt
     ```
 
 ## Configuration
