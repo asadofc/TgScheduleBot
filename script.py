@@ -15,7 +15,7 @@ from datetime import datetime, timedelta
 
 # Banner Configuration
 COLORS = ["red", "green", "yellow", "blue", "magenta", "cyan", "white"]
-BOT_NAME = "SCHEDULE POST"
+BOT_NAME = "Tg Post"
 OWNER_INFO = "@asadofc"
 CHANNEL_INFO = "@DoDotPy"
 
@@ -78,18 +78,18 @@ def display_banner(owner_username=None, channel_username=None):
     clear_screen()
     banner_text = pyfiglet.figlet_format(BOT_NAME, font='slant')
     print(colored(banner_text, random.choice(COLORS)))
-    print(colored("="*60, "cyan"))
+    print(colored("="*45, "cyan"))
     print(colored(f"  Developer: {OWNER_INFO}", "magenta"))
     print(colored(f"  Channel: {CHANNEL_INFO}", "green"))
-    print(colored("="*60, "cyan"))
+    print(colored("="*45, "cyan"))
     
     if owner_username and channel_username:
         print(colored(f"  User: @{owner_username}", "yellow"))
         print(colored(f"  Target Channel: @{channel_username}", "green"))
-        print(colored("="*60, "cyan"))
+        print(colored("="*45, "cyan"))
     else:
         print(colored("  Telegram Post Automation Userbot", "white"))
-        print(colored("="*60, "cyan"))
+        print(colored("="*45, "cyan"))
     print()
 
 
@@ -134,12 +134,12 @@ def get_character_prompts(config):
     """Get character persona and system prompts"""
     print()
     print(colored("🎭 AI Character Persona Configuration", "yellow", attrs=['bold']))
-    print(colored("-"*60, "white"))
+    print(colored("-"*25, "white"))
     
     print(colored("\n📝 Current Default Character Prompt:", "green"))
-    print(colored("-"*60, "white"))
+    print(colored("-"*25, "white"))
     print(colored(DEFAULT_CHARACTER_PROMPT.replace("{topic}", "[TOPIC]"), "white"))
-    print(colored("-"*60, "white"))
+    print(colored("-"*25, "white"))
     
     print(colored("\n💡 The prompt should include:", "yellow"))
     print("  • {topic} placeholder for random topics")
@@ -182,7 +182,7 @@ def get_character_prompts(config):
 def get_credentials():
     """Get only credentials configuration"""
     print(colored("🔐 CREDENTIALS CONFIGURATION", "green", attrs=['bold']))
-    print(colored("-"*60, "white"))
+    print(colored("-"*25, "white"))
     print()
     
     credentials = {}
@@ -218,7 +218,7 @@ def get_runtime_configuration(credentials):
     """Get runtime configuration (not saved)"""
     display_banner()
     print(colored("⚙️  RUNTIME CONFIGURATION", "green", attrs=['bold']))
-    print(colored("-"*60, "white"))
+    print(colored("-"*25, "white"))
     print()
     
     config = credentials.copy()
@@ -402,7 +402,7 @@ async def generate_all_content(config):
     print(f"\nGenerating {total_days} posts...")
     print(f"Date range: {start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')}")
     print(f"Posting time: {config['POSTING_TIME']}")
-    print("-" * 60)
+    print("-" * 45)
     
     for day in range(total_days):
         post_date = start_date + timedelta(days=day)
@@ -431,9 +431,9 @@ async def generate_all_content(config):
 
 def display_sample_posts(posts, num_samples=10):
     """Display sample posts for review"""
-    print("\n" + colored("="*60, "cyan"))
+    print("\n" + colored("="*45, "cyan"))
     print(colored(f"📋 SAMPLE POSTS (First {num_samples})", "yellow", attrs=['bold']))
-    print(colored("="*60, "cyan"))
+    print(colored("="*45, "cyan"))
     
     for i, post in enumerate(posts[:num_samples]):
         print(f"\n{colored(f'Day {post['day_number']}', 'green')} ({post['date']} - {post['weekday']})")
@@ -442,7 +442,7 @@ def display_sample_posts(posts, num_samples=10):
     if len(posts) > num_samples:
         print(colored(f"\n... and {len(posts) - num_samples} more posts", "white"))
     
-    print(colored("="*60, "cyan"))
+    print(colored("="*45, "cyan"))
 
 
 async def review_and_confirm_posts(config, posts):
@@ -451,13 +451,13 @@ async def review_and_confirm_posts(config, posts):
         display_sample_posts(posts)
         
         print(colored("\n📝 POST REVIEW OPTIONS", "green", attrs=['bold']))
-        print(colored("-"*60, "white"))
+        print(colored("-"*25, "white"))
         print(colored("1.", "yellow") + " ✅ Posts look good - Start scheduling")
         print(colored("2.", "yellow") + " 🎭 Update character persona and regenerate")
         print(colored("3.", "yellow") + " 🔄 Regenerate with same persona")
         print(colored("4.", "yellow") + " 👀 View all posts")
         print(colored("5.", "yellow") + " ❌ Cancel and exit")
-        print(colored("-"*60, "white"))
+        print(colored("-"*25, "white"))
         
         choice = input(colored("\nEnter your choice (1-5): ", "cyan"))
         
@@ -472,13 +472,13 @@ async def review_and_confirm_posts(config, posts):
             print(colored("\n🔄 Regenerating posts...", "yellow"))
             posts = await generate_all_content(config)
         elif choice == '4':
-            print("\n" + colored("="*60, "cyan"))
+            print("\n" + colored("="*45, "cyan"))
             print(colored("📋 ALL GENERATED POSTS", "yellow", attrs=['bold']))
-            print(colored("="*60, "cyan"))
+            print(colored("="*45, "cyan"))
             for post in posts:
                 print(f"\n{colored(f'Day {post['day_number']}', 'green')} ({post['date']} - {post['weekday']})")
                 print(f"  {colored('→', 'yellow')} {post['content']}")
-            print(colored("="*60, "cyan"))
+            print(colored("="*45, "cyan"))
             input(colored("\nPress Enter to continue...", "cyan"))
         elif choice == '5':
             return posts, False
@@ -509,7 +509,7 @@ async def schedule_all_posts(config, posts):
     
     chunks = chunk_posts(posts, config['MAX_PER_CHUNK'])
     print(f"Chunks: {len(chunks)} (max {config['MAX_PER_CHUNK']} per chunk)")
-    print("-" * 60)
+    print("-" * 45)
     
     scheduled_posts = []
     
@@ -523,7 +523,7 @@ async def schedule_all_posts(config, posts):
     async with client:
         for chunk_idx, chunk in enumerate(chunks):
             print(f"\nChunk {chunk_idx + 1}/{len(chunks)} ({len(chunk)} posts)")
-            print("-" * 60)
+            print("-" * 45)
             
             for post in chunk:
                 schedule_time = calculate_post_time(post['date'], config['POSTING_TIME'])
@@ -636,7 +636,7 @@ async def main():
         start_date, end_date, total_days = calculate_date_range(config)
         
         print(colored("\n✅ Configuration Ready", "green", attrs=['bold']))
-        print(colored("-"*60, "white"))
+        print(colored("-"*25, "white"))
         print(f"   Channel: {colored(config['CHANNEL'], 'yellow')}")
         print(f"   Start: {colored(start_date.strftime('%Y-%m-%d'), 'yellow')}")
         print(f"   End: {colored(end_date.strftime('%Y-%m-%d'), 'yellow')}")
@@ -644,9 +644,9 @@ async def main():
         print(f"   Time: {colored(config['POSTING_TIME'], 'yellow')}")
         print(f"   Max per chunk: {colored(str(config['MAX_PER_CHUNK']), 'yellow')}")
         
-        print("\n" + colored("="*60, "cyan"))
+        print("\n" + colored("="*45, "cyan"))
         print(colored("STEP 1: GENERATING CONTENT", "green", attrs=['bold']))
-        print(colored("="*60, "cyan"))
+        print(colored("="*45, "cyan"))
         
         posts = await generate_all_content(config)
         
@@ -657,17 +657,17 @@ async def main():
             print(colored("\n⚠️  Scheduling cancelled by user", "yellow"))
             sys.exit(0)
         
-        print("\n" + colored("="*60, "cyan"))
+        print("\n" + colored("="*45, "cyan"))
         print(colored("STEP 2: SCHEDULING TO TELEGRAM", "green", attrs=['bold']))
-        print(colored("="*60, "cyan"))
+        print(colored("="*45, "cyan"))
         
         scheduled_posts = await schedule_all_posts(config, posts)
         
         log_file = save_schedule_log(config, scheduled_posts)
         
-        print("\n" + colored("="*60, "cyan"))
+        print("\n" + colored("="*45, "cyan"))
         print(colored("✨ COMPLETE!", "green", attrs=['bold', 'blink']))
-        print(colored("="*60, "cyan"))
+        print(colored("="*45, "cyan"))
         print(colored("📊 Summary:", "yellow", attrs=['bold']))
         print(f"   Total posts: {colored(str(total_days), 'green')}")
         print(f"   Scheduled: {colored(str(scheduled_count), 'green')}")
@@ -676,7 +676,7 @@ async def main():
         print(f"\n🎯 Posts scheduled from {colored(start_date.strftime('%Y-%m-%d'), 'yellow')} to {colored(end_date.strftime('%Y-%m-%d'), 'yellow')}")
         print(f"⏰ Daily at {colored(config['POSTING_TIME'], 'yellow')}")
         print(colored("\n✅ You can close this now", "green", attrs=['bold']))
-        print(colored("="*60, "cyan") + "\n")
+        print(colored("="*45, "cyan") + "\n")
         
     except KeyboardInterrupt:
         print(colored("\n\n⚠️  Stopped by user", "yellow"))
